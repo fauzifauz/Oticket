@@ -72,7 +72,7 @@ Pastikan Anda sudah menginstall Git, PHP, Composer, dan MySQL di komputer/server
 
 1.  **Clone Repository**
     ```bash
-    git clone https://github.com/username/OTicket.git
+    git clone https://github.com/fauzifauz/Oticket.git
     cd OTicket
     ```
 
