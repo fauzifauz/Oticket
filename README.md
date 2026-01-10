@@ -213,5 +213,5 @@ A: Pastikan **Terminal 2 (npm run dev)** sedang berjalan.
 
 ---
 
-**© 2026 PT PRIMA TEKNOLOGI INOVASI - OTicket System**
+**© 2026 OTicket System**
 Dokumentasi disusun untuk memudahkan implementasi dan pemeliharaan sistem.
