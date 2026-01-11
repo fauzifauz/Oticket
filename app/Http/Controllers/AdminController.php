@@ -131,7 +131,14 @@ class AdminController extends Controller
                 $pythonPath = base_path('app/AI/venv/bin/python3');
                 $scriptPath = base_path('app/AI/mining_service.py');
                 
-                $args = [];
+                $dbConfig = config('database.connections.mysql');
+                $args = [
+                    "--db_host=" . escapeshellarg($dbConfig['host']),
+                    "--db_user=" . escapeshellarg($dbConfig['username']),
+                    "--db_pass=" . escapeshellarg($dbConfig['password'] ?? ''),
+                    "--db_name=" . escapeshellarg($dbConfig['database']),
+                ];
+
                 if ($request->filled('year')) $args[] = "--year=" . escapeshellarg($request->year);
                 if ($request->filled('month')) $args[] = "--month=" . escapeshellarg($request->month);
                 if ($request->filled('week')) $args[] = "--week=" . escapeshellarg($request->week);

@@ -1,18 +1,41 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 text-left">
-            <div class="flex items-center gap-4">
-                <a href="{{ route('dashboard') }}" class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-xl text-gray-400 hover:text-indigo-600 hover:border-indigo-100 transition-all">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
-                </a>
-                <div>
-                    <h2 class="font-extrabold text-2xl text-gray-900 tracking-tight">
-                        {{ __('Incident Dossier') }}
-                    </h2>
-                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">UUID: {{ $ticket->uuid }}</p>
+            <div class="flex flex-col md:flex-row md:items-center gap-4 w-full md:w-auto">
+                <div class="flex items-center gap-4">
+                    <a href="{{ route('dashboard') }}" class="w-10 h-10 flex items-center justify-center bg-white border border-gray-200 rounded-xl text-gray-400 hover:text-indigo-600 hover:border-indigo-100 transition-all shrink-0">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </a>
+                    <div>
+                        <h2 class="font-extrabold text-2xl text-gray-900 tracking-tight">
+                            {{ __('Incident Dossier') }}
+                        </h2>
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest mt-1">UUID: {{ $ticket->uuid }}</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3 md:hidden ml-14">
+                    @php
+                        $statusColor = match(strtolower($ticket->status)) {
+                            'open' => 'bg-rose-500 text-white',
+                            'in_progress', 'assigned' => 'bg-indigo-500 text-white',
+                            'resolved' => 'bg-emerald-500 text-white',
+                            default => 'bg-slate-400 text-white'
+                        };
+                        $prioColor = match(strtolower($ticket->priority)) {
+                            'high', 'critical', 'urgent' => 'text-rose-600 border-rose-100 bg-rose-50',
+                            'medium' => 'text-amber-600 border-amber-100 bg-amber-50',
+                            default => 'text-indigo-600 border-indigo-100 bg-indigo-50'
+                        };
+                    @endphp
+                    <span class="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest {{ $statusColor }}">
+                        {{ str_replace('_', ' ', $ticket->status) }}
+                    </span>
+                    <span class="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border {{ $prioColor }}">
+                        {{ $ticket->priority }} PRIORITY
+                    </span>
                 </div>
             </div>
-            <div class="flex items-center gap-3">
+            <div class="hidden md:flex items-center gap-3">
                 @php
                     $statusColor = match(strtolower($ticket->status)) {
                         'open' => 'bg-rose-500 text-white',
@@ -100,13 +123,22 @@
 
                         <div class="space-y-4">
                             @forelse($ticket->responses as $response)
-                                <div class="flex {{ $response->user_id == auth()->id() ? 'justify-end' : 'justify-start' }}">
-                                    <div class="max-w-[90%] lg:max-w-[85%] @if($response->user_id == auth()->id()) bg-indigo-600 shadow-xl shadow-indigo-100 rounded-2xl lg:rounded-[2rem] rounded-tr-none text-white @else bg-white shadow-sm border border-gray-100 rounded-2xl lg:rounded-[2rem] rounded-tl-none text-gray-900 @endif p-4 lg:p-6">
+                                @php
+                                    $isSelf = $response->user_id === auth()->id();
+                                    $role = $response->user->role;
+                                    $colorClass = match($role) {
+                                        'admin' => 'bg-indigo-600 text-white shadow-indigo-100',
+                                        'support' => 'bg-emerald-600 text-white shadow-emerald-100',
+                                        default => 'bg-gray-500 text-white shadow-gray-100',
+                                    };
+                                @endphp
+                                <div class="flex {{ $isSelf ? 'justify-end' : 'justify-start' }}">
+                                    <div class="max-w-[90%] lg:max-w-[85%] {{ $colorClass }} rounded-2xl lg:rounded-[2rem] rounded-tl-none {{ $isSelf ? 'rounded-tl-2xl lg:rounded-[2rem] rounded-tr-none' : '' }} p-4 lg:p-6 shadow-lg">
                                         <div class="flex items-center justify-between gap-4 lg:gap-8 mb-2">
-                                            <span class="text-[8px] lg:text-[9px] font-black uppercase tracking-widest @if($response->user_id == auth()->id()) text-indigo-200 @else text-indigo-500 @endif">
-                                                {{ $response->user->name }} @if($response->user_id != auth()->id()) (SUPPORT) @endif
+                                            <span class="text-[8px] lg:text-[9px] font-black uppercase tracking-widest opacity-90">
+                                                {{ $response->user->name }} @if($role !== 'user') ({{ strtoupper($role) }}) @endif
                                             </span>
-                                            <span class="text-[8px] lg:text-[9px] font-bold uppercase @if($response->user_id == auth()->id()) text-indigo-300 @else text-gray-400 @endif">
+                                            <span class="text-[8px] lg:text-[9px] font-bold uppercase opacity-70">
                                                 {{ $response->created_at->diffForHumans() }}
                                             </span>
                                         </div>
@@ -150,8 +182,15 @@
                             </div>
                         </div>
                     @else
+                        @if($ticket->status == 'closed')
+                            <div class="bg-slate-900 rounded-[2.5rem] p-10 text-center shadow-2xl text-left mb-8">
+                                <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2">Protocol Status: Terminated</h4>
+                                <p class="text-xs font-black text-slate-300 uppercase tracking-widest leading-relaxed">This ledger has been formally closed and is now read-only for archival integrity purposes.</p>
+                            </div>
+                        @endif
+
                         <!-- Resolution Feedback Protocol -->
-                        @if($ticket->status == 'resolved')
+                        @if($ticket->status == 'resolved' || ($ticket->status == 'closed' && $ticket->feedback))
                             <!-- Desktop View -->
                             <div class="hidden lg:block bg-indigo-600 rounded-[2.5rem] shadow-2xl p-10 text-white relative overflow-hidden text-center">
                                 <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
@@ -159,10 +198,10 @@
                                     <h4 class="text-[10px] font-black text-indigo-200 uppercase tracking-[0.3em] mb-4">Service Finalization Alpha</h4>
                                     <div class="inline-flex items-center gap-3 px-6 py-2 bg-white/10 rounded-full border border-white/20 mb-8">
                                         <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                        <p class="text-[10px] font-black uppercase tracking-widest text-white">Status: Resolved</p>
+                                        <p class="text-[10px] font-black uppercase tracking-widest text-white">Status: {{ strtoupper($ticket->status) }}</p>
                                     </div>
                                     
-                                    @if(!$ticket->feedback)
+                                    @if(!$ticket->feedback && $ticket->status == 'resolved')
                                         <form action="{{ route('tickets.feedback', $ticket->id) }}" method="POST" x-data="{ rating: 5 }" class="space-y-8">
                                             @csrf
                                             <input type="hidden" name="rating" :value="rating">
@@ -190,7 +229,7 @@
                                                 Deploy Feedback Protocol
                                             </button>
                                         </form>
-                                    @else
+                                    @elseif($ticket->feedback)
                                         <div class="bg-white/10 p-10 rounded-[2.5rem] border border-white/20 backdrop-blur-sm max-w-xl mx-auto shadow-2xl">
                                             <p class="text-[10px] font-black text-indigo-200 uppercase tracking-widest mb-4">Post-Service Audit Complete</p>
                                             <div class="flex justify-center gap-1 mb-6">
@@ -211,11 +250,6 @@
                             </div>
 
                             <!-- Mobile View Handled in Sidebar Area -->
-                        @else
-                            <div class="bg-slate-900 rounded-[2.5rem] p-10 text-center shadow-2xl text-left">
-                                <h4 class="text-[10px] font-black text-slate-500 uppercase tracking-[0.3em] mb-2">Protocol Status: Terminated</h4>
-                                <p class="text-xs font-black text-slate-300 uppercase tracking-widest leading-relaxed">This ledger has been formally closed and is now read-only for archival integrity purposes.</p>
-                            </div>
                         @endif
                     @endif
                 </div>
@@ -253,16 +287,16 @@
                     </div>
 
                     <!-- Mobile View: Side-by-Side Grid (Service Eval + Metadata) -->
-                    <div class="lg:hidden grid {{ $ticket->status == 'resolved' ? 'grid-cols-2' : 'grid-cols-1' }} gap-3">
+                    <div class="lg:hidden grid {{ ($ticket->status == 'resolved' || ($ticket->status == 'closed' && $ticket->feedback)) ? 'grid-cols-2' : 'grid-cols-1' }} gap-3">
                         
-                        @if($ticket->status == 'resolved')
+                        @if($ticket->status == 'resolved' || ($ticket->status == 'closed' && $ticket->feedback))
                         <!-- Item 1: Service Finalization (Square/Rectangle) -->
                         <div class="bg-indigo-600 rounded-2xl p-4 text-white text-center shadow-lg flex flex-col justify-center items-center h-auto min-h-[10rem] relative overflow-hidden">
                             <div class="absolute -right-6 -top-6 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
                             
                             <h4 class="text-[8px] font-black text-indigo-200 uppercase tracking-widest mb-2 relative z-10">Service Alpha</h4>
                             
-                            @if(!$ticket->feedback)
+                            @if(!$ticket->feedback && $ticket->status == 'resolved')
                                 <form action="{{ route('tickets.feedback', $ticket->id) }}" method="POST" x-data="{ rating: 5 }" class="w-full relative z-10">
                                     @csrf
                                     <input type="hidden" name="rating" :value="rating">

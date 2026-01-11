@@ -13,6 +13,9 @@
         <p style="margin: 5px 0;"><strong>Subject:</strong> {{ $ticket->subject }}</p>
         <p style="margin: 5px 0;"><strong>Current Status:</strong> <span style="text-transform: uppercase; font-weight: bold; color: #059669;">{{ str_replace('_', ' ', strtoupper($ticket->status)) }}</span></p>
         <p style="margin: 5px 0;"><strong>Current Priority:</strong> <span style="text-transform: uppercase; font-weight: bold; color: #b45309;">{{ strtoupper($ticket->priority) }}</span></p>
+        @if($ticket->support)
+        <p style="margin: 5px 0;"><strong>Handled By:</strong> <span style="color: #4f46e5; font-weight: bold;">{{ $ticket->support->name }}</span> ({{ ucfirst($ticket->support->role) }})</p>
+        @endif
     </div>
 
     <p style="margin-top: 20px;">

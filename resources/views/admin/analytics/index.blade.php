@@ -4,47 +4,48 @@
             <h2 class="font-extrabold text-2xl text-gray-900 tracking-tight">
                 {{ __('Analytics & Reports Dashboard') }}
             </h2>
-            <div class="grid grid-cols-1 xs:grid-cols-2 md:flex md:items-center gap-2 sm:gap-3 w-full sm:w-auto justify-start sm:justify-end">
+            <div class="flex flex-col lg:flex-row items-stretch lg:items-center gap-3 w-full lg:w-auto mt-4 lg:mt-0">
                 <!-- General Exports -->
-                <div class="flex items-center h-9 bg-white border border-gray-300 rounded-lg shadow-sm col-span-1 overflow-hidden">
-                    <a href="{{ route('admin.tickets.export-pdf') }}" class="h-full inline-flex items-center justify-center px-3 border-r border-gray-200 font-bold text-[9px] text-gray-700 uppercase tracking-widest hover:bg-gray-50 transition" title="Export General PDF">
-                        <svg class="w-3.5 h-3.5 mr-1 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <div class="flex items-center h-11 sm:h-10 lg:h-9 bg-white border border-gray-300 rounded-xl lg:rounded-lg shadow-sm overflow-hidden shrink-0">
+                    <a href="{{ route('admin.tickets.export-pdf') }}" class="flex-1 lg:flex-none h-full inline-flex items-center justify-center px-5 lg:px-3 border-r border-gray-200 font-bold text-[10px] sm:text-[11px] lg:text-[9px] text-gray-700 uppercase tracking-widest hover:bg-gray-50 transition" title="Export General PDF">
+                        <svg class="w-4 h-4 lg:w-3.5 lg:h-3.5 mr-2 lg:mr-1 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                         PDF
                     </a>
-                    <a href="{{ route('admin.tickets.export') }}" class="h-full inline-flex items-center justify-center px-3 font-bold text-[9px] text-gray-700 uppercase tracking-widest hover:bg-gray-50 transition" title="Export General CSV">
-                        <svg class="w-3.5 h-3.5 mr-1 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <a href="{{ route('admin.tickets.export') }}" class="flex-1 lg:flex-none h-full inline-flex items-center justify-center px-5 lg:px-3 font-bold text-[10px] sm:text-[11px] lg:text-[9px] text-gray-700 uppercase tracking-widest hover:bg-gray-50 transition" title="Export General CSV">
+                        <svg class="w-4 h-4 lg:w-3.5 lg:h-3.5 mr-2 lg:mr-1 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                         CSV
                     </a>
                 </div>
 
                 <!-- Monthly Export -->
-                <form action="{{ route('admin.tickets.export-monthly-pdf') }}" method="GET" id="monthlyExportForm" class="flex items-center h-9 bg-white border border-gray-300 rounded-lg shadow-sm col-span-1">
-                    <input type="month" name="month" id="exportMonth" value="{{ date('Y-m') }}" 
-                           class="h-full px-2 py-0 border-0 rounded-l-lg text-[10px] font-extrabold focus:ring-0 focus:outline-none bg-transparent leading-none text-gray-700 w-full sm:w-auto min-w-[100px]">
-                    <div class="flex items-center h-full">
-                        <button type="submit" class="h-full inline-flex items-center justify-center px-3 bg-red-600 font-black text-[9px] text-white uppercase tracking-tighter hover:bg-red-700 transition" title="Download Monthly PDF">
-                            PDF
-                        </button>
-                        <button type="button" 
-                                onclick="window.location.href='{{ route('admin.tickets.export-monthly-csv') }}?month=' + document.getElementById('exportMonth').value"
-                                class="h-full inline-flex items-center justify-center px-3 bg-emerald-600 rounded-r-lg font-black text-[9px] text-white uppercase tracking-tighter hover:bg-emerald-700 transition" title="Download Monthly CSV">
-                            CSV
-                        </button>
-                    </div>
-                </form>
+                <div class="flex flex-col sm:flex-row gap-2 lg:gap-0 w-full lg:w-auto">
+                    <form action="{{ route('admin.tickets.export-monthly-pdf') }}" method="GET" id="monthlyExportForm" class="flex items-center h-11 sm:h-10 lg:h-9 bg-white border border-gray-300 rounded-xl lg:rounded-lg shadow-sm overflow-hidden flex-1 lg:flex-initial">
+                        <input type="month" name="month" id="exportMonth" value="{{ date('Y-m') }}" 
+                               class="h-full px-3 lg:px-2 py-0 border-0 rounded-l-xl lg:rounded-l-lg text-[10px] sm:text-[11px] lg:text-[10px] font-extrabold focus:ring-0 focus:outline-none bg-transparent leading-none text-gray-700 w-full sm:w-28 lg:w-24 border-r border-gray-200">
+                        <div class="flex items-center h-full flex-1 lg:flex-none">
+                            <button type="submit" class="flex-1 lg:flex-none h-full inline-flex items-center justify-center px-5 lg:px-3 bg-red-600 font-black text-[10px] sm:text-[11px] lg:text-[9px] text-white uppercase tracking-tighter hover:bg-red-700 transition" title="Download Monthly PDF">
+                                PDF
+                            </button>
+                            <button type="button" 
+                                    onclick="window.location.href='{{ route('admin.tickets.export-monthly-csv') }}?month=' + document.getElementById('exportMonth').value"
+                                    class="flex-1 lg:flex-none h-full inline-flex items-center justify-center px-5 lg:px-3 bg-emerald-600 rounded-r-xl lg:rounded-r-lg font-black text-[10px] sm:text-[11px] lg:text-[9px] text-white uppercase tracking-tighter hover:bg-emerald-700 transition" title="Download Monthly CSV">
+                                CSV
+                            </button>
+                        </div>
+                    </form>
+                </div>
  
                 <!-- Yearly Export -->
-                <div x-data="{ open: false, year: '{{ date('Y') }}' }" class="relative flex items-center h-9 bg-white border border-gray-300 rounded-lg shadow-sm font-bold text-[10px] uppercase tracking-widest col-span-2 xs:col-span-1 sm:col-span-auto">
-                    <div class="flex items-center h-full w-full">
-                        <select x-model="year" class="h-full border-0 bg-transparent text-[10px] font-extrabold focus:ring-0 py-0 pl-3 pr-8 rounded-l-lg text-gray-700 cursor-pointer appearance-none w-full sm:w-auto">
+                <div x-data="{ open: false, year: '{{ date('Y') }}' }" class="relative flex flex-col sm:flex-row gap-2 lg:gap-0 w-full lg:w-auto">
+                    <div class="flex items-center h-11 sm:h-10 lg:h-9 bg-white border border-gray-300 rounded-xl lg:rounded-lg shadow-sm font-bold text-[10px] uppercase tracking-widest overflow-hidden flex-1 lg:flex-initial">
+                        <select x-model="year" class="h-full border-0 bg-transparent text-[10px] sm:text-[11px] lg:text-[10px] font-extrabold focus:ring-0 py-0 pl-4 lg:pl-3 pr-10 lg:pr-8 rounded-l-xl lg:rounded-l-lg text-gray-700 cursor-pointer appearance-none flex-1 lg:flex-none lg:w-20 border-r border-gray-200">
                             @for($y = date('Y'); $y >= date('Y') - 5; $y--)
                                 <option value="{{ $y }}">{{ $y }}</option>
                             @endfor
                         </select>
-                        <div class="h-full w-px bg-gray-200"></div>
-                        <button @click="open = !open" class="h-full px-4 flex items-center gap-2 bg-slate-800 text-white rounded-r-lg hover:bg-slate-900 transition-all whitespace-nowrap">
+                        <button @click="open = !open" class="flex-1 lg:flex-none h-full px-6 lg:px-4 flex items-center justify-center gap-2 bg-slate-800 text-white rounded-r-xl lg:rounded-r-lg hover:bg-slate-900 transition-all whitespace-nowrap">
                             <span>Years</span>
-                            <svg class="w-3 h-3 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                            <svg class="w-4 h-4 lg:w-3 lg:h-3 transition-transform" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                         </button>
                     </div>
                     
@@ -162,7 +163,7 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-8">
                 <!-- Support Performance -->
                 <div class="lg:col-span-1 bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
                     <div class="flex items-center justify-between mb-6">
@@ -171,17 +172,17 @@
                     </div>
                     <div class="space-y-3">
                         @foreach($supportPerformance as $staff)
-                        <a href="{{ route('admin.tickets.index', array_merge(['assigned_to' => $staff->name], request()->only(['year', 'month', 'week']))) }}" class="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-sm transition-all duration-200 group">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold uppercase group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                        <a href="{{ route('admin.tickets.index', array_merge(['assigned_to' => $staff->name], request()->only(['year', 'month', 'week']))) }}" class="flex items-center justify-between p-4 bg-gray-50/50 rounded-xl border border-transparent hover:border-blue-100 hover:bg-white hover:shadow-sm transition-all duration-200 group overflow-hidden gap-3">
+                            <div class="flex items-center gap-3 min-w-0">
+                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold uppercase group-hover:bg-blue-600 group-hover:text-white transition-colors shrink-0">
                                     {{ substr($staff->name, 0, 2) }}
                                 </div>
-                                <div>
-                                    <p class="text-sm font-bold text-gray-800">{{ $staff->name }}</p>
-                                    <p class="text-[10px] font-medium text-gray-400 font-mono tracking-tighter">{{ $staff->resolved_count }} RESOLVED TICKETS</p>
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-sm font-bold text-gray-800 truncate">{{ $staff->name }}</p>
+                                    <p class="text-[10px] font-medium text-gray-400 font-mono tracking-tighter truncate">{{ $staff->resolved_count }} RESOLVED TICKETS</p>
                                 </div>
                             </div>
-                            <div class="text-right">
+                            <div class="text-right shrink-0">
                                 <p class="text-sm font-extrabold text-yellow-600 flex items-center gap-1 group-hover:scale-110 transition-transform">
                                     {{ number_format($staff->avg_rating, 1) }}
                                     <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>

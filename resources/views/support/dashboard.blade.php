@@ -137,7 +137,7 @@
             </div>
 
             <!-- Performance Metrics Row -->
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-2 lg:gap-6 mb-4 lg:mb-8 text-left">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-6 mb-4 lg:mb-8 text-left">
                 <!-- MY Avg Response Time -->
                 <div class="bg-white p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
                     <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-2 md:mb-3">
@@ -216,34 +216,34 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- Global Satisfaction & Feedback Ticker -->
-            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 text-left">
-                <!-- Rating Satisfaction Card -->
-                <div class="bg-gradient-to-br from-amber-400 to-orange-500 p-4 lg:p-6 rounded-2xl shadow-lg shadow-orange-100 text-white hover:shadow-xl transition-all">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <!-- Rating Satisfaction Card (Moved here for mobile side-by-side) -->
+                <div class="bg-gradient-to-br from-amber-400 to-orange-500 p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-lg shadow-orange-100 text-white hover:shadow-xl transition-all">
+                    <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-4 mb-2 md:mb-4">
+                        <div class="w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center">
+                            <svg class="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <div>
-                            <p class="text-[9px] font-black text-orange-50 uppercase tracking-widest leading-none">Global Satisfaction</p>
-                            <p class="text-2xl font-black leading-none mt-1">{{ number_format($performance['avgRating'], 1) }}<span class="text-sm opacity-80 ml-1">/ 5.0</span></p>
+                            <p class="text-[7px] md:text-[9px] font-black text-orange-50 uppercase tracking-wider md:tracking-normal lg:tracking-widest leading-none">Global Satisfaction</p>
+                            <p class="text-lg md:text-2xl font-black leading-none mt-0.5 md:mt-1">{{ number_format($performance['avgRating'], 1) }}<span class="text-[8px] md:text-sm opacity-80 ml-1">/ 5.0</span></p>
                         </div>
                     </div>
-                    <div class="flex items-center justify-between">
-                        <p class="text-[9px] text-orange-50 font-black uppercase tracking-widest">From {{ $performance['totalRatings'] }} Reviews</p>
+                    <div class="flex items-center justify-between mt-1 md:mt-0">
+                        <p class="text-[6px] md:text-[9px] text-orange-50 font-black uppercase tracking-widest">From {{ $performance['totalRatings'] }} Reviews</p>
                         <div class="flex gap-px">
                             @for($i = 1; $i <= 5; $i++)
-                                <svg class="w-3 h-3 {{ $i <= round($performance['avgRating']) ? 'text-white' : 'text-white/30' }}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                <svg class="w-2 h-2 md:w-3 md:h-3 {{ $i <= round($performance['avgRating']) ? 'text-white' : 'text-white/30' }}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                             @endfor
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <!-- Feedback History Scrolling Ticker -->
-                <div class="lg:col-span-3 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col justify-center py-4">
-                    <div class="px-6 mb-2 flex items-center justify-between">
+            <!-- Global Satisfaction & Feedback Ticker -->
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-6 mb-8 text-left">
+                <!-- Feedback History Scrolling Ticker (Full Width on lg) -->
+                <div class="lg:col-span-4 bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative flex flex-col justify-center py-2 md:py-4">
+                    <div class="px-6 mb-1 md:mb-2 flex items-center justify-between">
                         <h4 class="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] flex items-center gap-2">
                             <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-ping"></span>
                             Live Feedback Protocol
@@ -273,21 +273,21 @@
                                 $tickerItems = $recentFeedbacks->concat($recentFeedbacks);
                             @endphp
                             @forelse($tickerItems as $feedback)
-                                <a href="{{ route('support.tickets.show', $feedback->id) }}" class="flex-shrink-0 bg-gray-50/50 border border-gray-100 p-4 rounded-xl min-w-[300px] max-w-[400px] flex items-start gap-4 hover:shadow-md hover:border-indigo-100 transition-all cursor-pointer">
-                                    <div class="w-10 h-10 bg-white rounded-lg shadow-sm flex flex-col items-center justify-center shrink-0 border border-gray-100">
-                                        <p class="text-[14px] font-black text-indigo-600 leading-none">{{ $feedback->feedback->rating }}</p>
+                                <a href="{{ route('support.tickets.show', $feedback->id) }}" class="flex-shrink-0 bg-gray-50/50 border border-gray-100 p-3 md:p-4 rounded-xl min-w-[280px] md:min-w-[300px] max-w-[350px] md:max-w-[400px] flex items-start gap-3 md:gap-4 hover:shadow-md hover:border-indigo-100 transition-all cursor-pointer">
+                                    <div class="w-8 h-8 md:w-10 md:h-10 bg-white rounded-lg shadow-sm flex flex-col items-center justify-center shrink-0 border border-gray-100">
+                                        <p class="text-[12px] md:text-[14px] font-black text-indigo-600 leading-none">{{ $feedback->feedback->rating }}</p>
                                         <div class="flex gap-px mt-0.5">
                                             @for($i = 1; $i <= 5; $i++)
-                                                <svg class="w-1.5 h-1.5 {{ $i <= $feedback->feedback->rating ? 'text-amber-400' : 'text-gray-200' }}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                                <svg class="w-1 md:w-1.5 h-1 md:h-1.5 {{ $i <= $feedback->feedback->rating ? 'text-amber-400' : 'text-gray-200' }}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                                             @endfor
                                         </div>
                                     </div>
                                     <div class="flex-1 overflow-hidden">
-                                        <div class="flex justify-between items-center mb-1">
-                                            <p class="text-[9px] font-black text-gray-900 uppercase truncate">{{ $feedback->user->name }}</p>
-                                            <p class="text-[8px] font-bold text-gray-400 uppercase">{{ $feedback->updated_at->shortRelativeDiffForHumans() }}</p>
+                                        <div class="flex justify-between items-center mb-0.5 md:mb-1">
+                                            <p class="text-[8px] md:text-[9px] font-black text-gray-900 uppercase truncate">{{ $feedback->user->name }}</p>
+                                            <p class="text-[7px] md:text-[8px] font-bold text-gray-400 uppercase">{{ $feedback->updated_at->shortRelativeDiffForHumans() }}</p>
                                         </div>
-                                        <p class="text-[10px] font-bold text-gray-600 uppercase tracking-tight italic line-clamp-2 leading-relaxed">&quot;{{ $feedback->feedback->comment ?: 'NO VERBAL FEEDBACK PROVIDED' }}&quot;</p>
+                                        <p class="text-[9px] md:text-[10px] font-bold text-gray-600 uppercase tracking-tight italic line-clamp-2 leading-tight md:leading-relaxed">&quot;{{ $feedback->feedback->comment ?: 'NO VERBAL FEEDBACK PROVIDED' }}&quot;</p>
                                     </div>
                                 </a>
                             @empty

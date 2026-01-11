@@ -7,12 +7,25 @@ import sys
 def perform_mining():
     try:
         # 1. Database Connection
-        conn = mysql.connector.connect(
-            host="127.0.0.1",
-            user="root",
-            password="",
-            database="oticket"
-        )
+        db_config = {
+            "host": "127.0.0.1",
+            "user": "root",
+            "password": "",
+            "database": "oticket"
+        }
+
+        if len(sys.argv) > 1:
+            for arg in sys.argv[1:]:
+                if arg.startswith('--db_host='):
+                    db_config["host"] = arg.split('=')[1]
+                elif arg.startswith('--db_user='):
+                    db_config["user"] = arg.split('=')[1]
+                elif arg.startswith('--db_pass='):
+                    db_config["password"] = arg.split('=')[1]
+                elif arg.startswith('--db_name='):
+                    db_config["database"] = arg.split('=')[1]
+
+        conn = mysql.connector.connect(**db_config)
 
         # 2. Fetch Data with Filters
         year = None

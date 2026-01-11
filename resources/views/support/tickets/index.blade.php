@@ -22,8 +22,13 @@
                 <div class="px-8 py-6 border-b border-gray-100 bg-white">
                     <form action="{{ route('support.tickets.index') }}" method="GET" class="flex flex-col md:flex-row md:items-end justify-between gap-4">
                         <div class="flex flex-wrap items-center gap-4">
-                            <div class="flex flex-col gap-1.5 text-left">
-                                <label class="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest px-1">Filter Status</label>
+                            <div class="flex flex-col gap-1.5 text-left w-full md:w-auto">
+                                <div class="flex items-center justify-between md:block px-1">
+                                    <label class="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest">Filter Status</label>
+                                    <a href="{{ route('support.tickets.index') }}" class="md:hidden inline-flex items-center px-3 py-1 bg-white border border-gray-200 text-gray-400 rounded-lg text-[9px] font-black uppercase tracking-widest hover:text-gray-600 transition duration-150">
+                                        Reset Filter
+                                    </a>
+                                </div>
                                 <div class="flex gap-2">
                                     <a href="{{ route('support.tickets.index') }}" class="px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all {{ !request('status') ? 'bg-indigo-600 text-white shadow-md shadow-indigo-100' : 'bg-gray-50 text-gray-500 hover:bg-gray-100' }}">
                                         All
@@ -37,7 +42,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center gap-2 pb-0.5">
+                        <div class="hidden md:flex items-center gap-2 pb-0.5">
                             <a href="{{ route('support.tickets.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-200 text-gray-400 rounded-xl text-[10px] font-black uppercase tracking-widest hover:text-gray-600 hover:bg-gray-50 transition duration-150">
                                 Reset Filter
                             </a>

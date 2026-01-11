@@ -44,13 +44,20 @@
                     </div>
                     <div class="w-full md:w-auto">
                         <form action="{{ route('admin.activity_logs.index') }}" method="GET" class="grid grid-cols-2 md:flex md:items-center gap-2 sm:gap-3 w-full">
-                            <div class="col-span-2 md:w-64">
-                                <div class="relative group">
+                            <div class="col-span-2 md:w-64 flex items-center gap-2">
+                                <div class="relative group flex-1">
                                     <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-indigo-500 transition-colors">
                                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                                     </div>
                                     <input type="text" name="search" value="{{ request('search') }}" placeholder="Search logs or agents..." 
                                         class="w-full py-2 pl-9 pr-3 bg-gray-50/50 border border-gray-100 rounded-xl text-[10px] sm:text-xs font-bold uppercase focus:ring-2 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all outline-none">
+                                </div>
+                                <!-- Total for Mobile -->
+                                <div class="md:hidden px-3 py-2 bg-indigo-50/50 border border-indigo-100/50 rounded-xl flex items-center gap-1.5 shrink-0 whitespace-nowrap">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
+                                    <span class="text-[9px] font-black text-indigo-600 uppercase tracking-widest">
+                                        Total: {{ $logs->total() }}
+                                    </span>
                                 </div>
                             </div>
                             <div class="col-span-1">
@@ -73,7 +80,7 @@
                                 <button type="submit" class="hidden md:inline-flex items-center px-4 py-2 bg-gray-900 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-gray-800 transition-all active:scale-95">
                                     Filter
                                 </button>
-                                <div class="px-3 py-2 bg-indigo-50/50 border border-indigo-100/50 rounded-xl flex items-center gap-1.5 shrink-0 ml-auto md:ml-0">
+                                <div class="hidden md:flex px-3 py-2 bg-indigo-50/50 border border-indigo-100/50 rounded-xl items-center gap-1.5 shrink-0 ml-auto md:ml-0">
                                     <span class="w-1.5 h-1.5 rounded-full bg-indigo-500 animate-pulse"></span>
                                     <span class="text-[9px] font-black text-indigo-600 uppercase tracking-widest">
                                         Total: {{ $logs->total() }}

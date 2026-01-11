@@ -165,11 +165,20 @@
 
                         <div class="space-y-4">
                             @forelse($ticket->responses as $response)
-                                <div class="flex flex-col {{ $response->user_id === auth()->id() ? 'items-end' : 'items-start' }}">
-                                    <div class="max-w-[95%] sm:max-w-[85%] {{ $response->user_id === auth()->id() ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white text-gray-800 border border-gray-100 shadow-sm' }} p-4 sm:p-6 rounded-xl sm:rounded-3xl rounded-tl-none @if($response->user_id === auth()->id()) rounded-tl-xl sm:rounded-tl-3xl rounded-tr-none @endif transition-transform hover:scale-[1.01]">
+                                @php
+                                    $isSelf = $response->user_id === auth()->id();
+                                    $role = $response->user->role;
+                                    $colorClass = match($role) {
+                                        'admin' => 'bg-indigo-600 text-white shadow-indigo-100',
+                                        'support' => 'bg-emerald-600 text-white shadow-emerald-100',
+                                        default => 'bg-gray-500 text-white shadow-gray-100',
+                                    };
+                                @endphp
+                                <div class="flex flex-col {{ $isSelf ? 'items-end' : 'items-start' }}">
+                                    <div class="max-w-[95%] sm:max-w-[85%] {{ $colorClass }} p-4 sm:p-6 rounded-xl sm:rounded-3xl rounded-tl-none {{ $isSelf ? 'rounded-tl-xl sm:rounded-tl-3xl rounded-tr-none' : '' }} transition-transform hover:scale-[1.01] shadow-lg">
                                         <div class="flex items-center justify-between mb-2 sm:mb-3 gap-6 sm:gap-8">
-                                            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest @if($response->user_id === auth()->id()) text-indigo-100 @else text-gray-400 @endif">{{ $response->user->name }}</span>
-                                            <span class="text-[8px] sm:text-[9px] font-bold uppercase tracking-tighter opacity-60">{{ $response->created_at->diffForHumans() }}</span>
+                                            <span class="text-[9px] sm:text-[10px] font-black uppercase tracking-widest opacity-90">{{ $response->user->name }}</span>
+                                            <span class="text-[8px] sm:text-[9px] font-bold uppercase tracking-tighter opacity-70">{{ $response->created_at->diffForHumans() }}</span>
                                         </div>
                                         <div class="text-[12px] sm:text-[13px] font-bold leading-relaxed uppercase tracking-tight">
                                             {!! nl2br(e($response->message)) !!}

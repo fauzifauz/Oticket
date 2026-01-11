@@ -148,24 +148,24 @@
 
                     <!-- Customer Feedback Section -->
                     @if($ticket->feedback)
-                        <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[2rem] shadow-xl shadow-indigo-100 overflow-hidden relative group">
+                        <div class="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-2xl md:rounded-[2rem] shadow-xl shadow-indigo-100 overflow-hidden relative group">
                             <div class="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl group-hover:bg-white/20 transition-all duration-500"></div>
-                            <div class="p-8 relative z-10 text-left">
-                                <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+                            <div class="p-5 md:p-8 relative z-10 text-left">
+                                <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8">
                                     <div class="text-center md:text-left shrink-0">
-                                        <h3 class="text-[10px] font-black text-indigo-200 uppercase tracking-[0.3em] mb-4">Customer Satisfaction Feedback</h3>
+                                        <h3 class="text-[9px] md:text-[10px] font-black text-indigo-200 uppercase tracking-widest md:tracking-[0.3em] mb-2 md:mb-4">Customer Satisfaction Feedback</h3>
                                         <div class="flex items-center justify-center md:justify-start gap-1">
                                             @for($i = 1; $i <= 5; $i++)
-                                                <svg class="w-8 h-8 {{ $i <= $ticket->feedback->rating ? 'text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]' : 'text-indigo-400/40' }}" fill="currentColor" viewBox="0 0 20 20">
+                                                <svg class="w-5 h-5 md:w-8 md:h-8 {{ $i <= $ticket->feedback->rating ? 'text-amber-400 drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]' : 'text-indigo-400/40' }}" fill="currentColor" viewBox="0 0 20 20">
                                                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
                                                 </svg>
                                             @endfor
                                         </div>
                                     </div>
                                     @if($ticket->feedback->comment)
-                                        <div class="flex-1 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/10 shadow-inner">
-                                            <p class="text-[10px] font-black text-indigo-100 uppercase tracking-widest mb-3 opacity-60">Employee Narrative:</p>
-                                            <p class="text-xs font-bold text-white italic leading-relaxed uppercase tracking-tight">"{{ $ticket->feedback->comment }}"</p>
+                                        <div class="flex-1 bg-white/10 backdrop-blur-md rounded-2xl p-4 md:p-6 border border-white/10 shadow-inner w-full">
+                                            <p class="text-[9px] md:text-[10px] font-black text-indigo-100 uppercase tracking-widest mb-1 md:mb-3 opacity-60">Employee Narrative:</p>
+                                            <p class="text-[10px] md:text-xs font-bold text-white italic leading-relaxed uppercase tracking-tight">"{{ $ticket->feedback->comment }}"</p>
                                         </div>
                                     @endif
                                 </div>
@@ -185,13 +185,22 @@
 
                         <div class="space-y-4">
                             @forelse($ticket->responses as $response)
-                                <div class="flex flex-col {{ $response->user_id === auth()->id() ? 'items-end' : 'items-start' }}">
-                                    <div class="{{ $response->user_id === auth()->id() ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-100' : 'bg-white text-gray-800 border border-gray-100 shadow-sm' }} p-6 rounded-3xl rounded-tl-none @if($response->user_id === auth()->id()) rounded-tl-3xl rounded-tr-none @endif transition-transform hover:scale-[1.01] max-w-[90%]">
+                                @php
+                                    $isSelf = $response->user_id === auth()->id();
+                                    $role = $response->user->role;
+                                    $colorClass = match($role) {
+                                        'admin' => 'bg-indigo-600 text-white shadow-indigo-100',
+                                        'support' => 'bg-emerald-600 text-white shadow-emerald-100',
+                                        default => 'bg-gray-500 text-white shadow-gray-100',
+                                    };
+                                @endphp
+                                <div class="flex flex-col {{ $isSelf ? 'items-end' : 'items-start' }}">
+                                    <div class="max-w-[90%] {{ $colorClass }} p-6 rounded-3xl rounded-tl-none {{ $isSelf ? 'rounded-tl-3xl rounded-tr-none' : '' }} transition-transform hover:scale-[1.01] shadow-lg">
                                         <div class="flex items-center justify-between mb-3 gap-8 text-left">
-                                            <span class="text-[10px] font-black uppercase tracking-widest @if($response->user_id === auth()->id()) text-indigo-100 @else text-gray-400 @endif">
+                                            <span class="text-[10px] font-black uppercase tracking-widest opacity-90">
                                                 {{ $response->user->name }} ({{ strtoupper($response->user->role) }})
                                             </span>
-                                            <span class="text-[9px] font-bold uppercase tracking-tighter opacity-60">{{ $response->created_at->diffForHumans() }}</span>
+                                            <span class="text-[9px] font-bold uppercase tracking-tighter opacity-70">{{ $response->created_at->diffForHumans() }}</span>
                                         </div>
                                         <div class="text-[13px] font-bold leading-relaxed uppercase tracking-tight text-left">
                                             {!! nl2br(e($response->message)) !!}
