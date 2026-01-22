@@ -136,7 +136,5 @@ class NotificationController extends Controller
             'count' => $finalCount
         ]);
 
-
-
     }
 }
