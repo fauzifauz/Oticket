@@ -256,9 +256,60 @@
                     </div>
                 </div>
 
-                <!-- Sidebar (4 Columns) - Desktop Only -->
-                <div class="hidden lg:block lg:col-span-4 space-y-8 text-left">
+                <!-- Sidebar / Metadata -->
+                <div class="lg:col-span-4 space-y-8">
                     
+                    <!-- AI Similar Tickets Card -->
+                    <div class="bg-gradient-to-br from-gray-900 to-indigo-950 rounded-xl shadow-lg overflow-hidden text-white relative group border border-white/5">
+                        <div class="px-4 py-3 border-b border-white/10 bg-black/40 flex justify-between items-center relative z-10">
+                            <h4 class="font-black text-[10px] uppercase tracking-widest flex items-center gap-2 text-indigo-300">
+                                <svg class="w-3.5 h-3.5 text-emerald-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                AI Similar Tickets
+                            </h4>
+                            <span class="bg-emerald-500/20 text-emerald-300 text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/20">
+                                {{ !empty($similarTickets) ? count($similarTickets) : 0 }} Found
+                            </span>
+                        </div>
+                        
+                        <div class="p-3 space-y-4 relative z-10">
+                            @if(!empty($similarTickets) && count($similarTickets) > 0)
+                                @foreach($similarTickets as $match)
+                                    <div class="group/item relative pl-3 border-l border-indigo-500/30 hover:border-emerald-500 transition-colors duration-300 text-left">
+                                        <div class="flex justify-between items-start mb-1 gap-2">
+                                            <a href="{{ route('support.tickets.show', $match['id']) }}" target="_blank" class="text-[11px] font-black text-white hover:text-emerald-300 transition-colors uppercase tracking-tight line-clamp-1 leading-tight">
+                                                {{ $match['subject'] }}
+                                            </a>
+                                            <span class="text-[9px] font-bold text-emerald-400 whitespace-nowrap">{{ $match['similarity'] }}%</span>
+                                        </div>
+                                        
+                                        <div class="bg-white/5 rounded-lg p-2.5 mb-2 border border-white/5 group-hover/item:bg-white/10 transition-colors text-left">
+                                            <p class="text-[9px] text-gray-300 line-clamp-2 leading-relaxed font-medium">
+                                                "{{ $match['solution'] ?: 'No explicit solution recorded.' }}"
+                                            </p>
+                                        </div>
+
+                                        <a href="{{ route('support.tickets.show', $match['id']) }}" target="_blank" class="inline-flex items-center text-[9px] font-bold text-indigo-300 hover:text-white uppercase tracking-wider transition-colors group-hover/item:translate-x-1 duration-300">
+                                            Access Protocol
+                                            <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                                        </a>
+                                    </div>
+                                @endforeach
+                            @else
+                                <div class="py-4 text-center">
+                                    <p class="text-[10px] font-bold text-indigo-300/60 uppercase tracking-widest">No similar protocols mapped</p>
+                                </div>
+                            @endif
+                        </div>
+                        
+                        <div class="bg-black/40 p-2 text-center border-t border-white/5">
+                            <p class="text-[8px] text-indigo-400/40 uppercase tracking-widest font-bold font-mono">Powered by O-ENGINE</p>
+                        </div>
+                    </div>
+
+                    <!-- Additional Sidebar Modules (Desktop Only) -->
+                    <div class="hidden lg:block space-y-8">
+
+
                     <!-- User Info Card -->
                     <div class="bg-gray-900 rounded-3xl p-8 shadow-xl shadow-gray-200 overflow-hidden relative group">
                         <div class="absolute -right-4 -top-4 w-24 h-24 bg-indigo-500/10 rounded-full blur-2xl group-hover:bg-indigo-500/20 transition-all"></div>

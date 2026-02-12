@@ -196,7 +196,51 @@ class TicketController extends Controller
         
         $priorityColors = $this->getPriorityColors();
 
-        return view('admin.tickets.show', compact('ticket', 'statuses', 'slaRules', 'supportStaff', 'priorityColors'));
+        $similarTickets = $this->getSimilarTickets($ticket);
+
+        return view('admin.tickets.show', compact('ticket', 'statuses', 'slaRules', 'supportStaff', 'priorityColors', 'similarTickets'));
+    }
+
+    protected function getSimilarTickets($ticket)
+    {
+        try {
+            $scriptPath = base_path('app/AI/ticket_similarity.py');
+            // Escape arguments safely
+            $subject = escapeshellarg($ticket->subject);
+            $description = escapeshellarg($ticket->description);
+            
+            // For Admin, we allow seeing global history for better oversight
+            // Support will remain restricted to their own history via SupportController
+            
+            $pythonPath = base_path('venv/bin/python');
+            if (!file_exists($pythonPath)) {
+                $pythonPath = 'python3';
+            }
+            
+            $command = "\"$pythonPath\" \"$scriptPath\" --subject=$subject --description=$description";
+            
+            $output = shell_exec($command);
+            
+            // Log output for debugging if needed
+            // \Illuminate\Support\Facades\Log::info("AI Output: " . $output);
+            
+            $result = json_decode($output, true);
+            
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return [];
+            }
+            
+            // Check for error key
+             if (isset($result['error'])) {
+                \Illuminate\Support\Facades\Log::error("AI Script Error: " . $result['error']);
+                return [];
+            }
+
+            return $result ?? [];
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("AI Similarity Execution Failed: " . $e->getMessage());
+            return [];
+        }
     }
 
 

@@ -59,7 +59,7 @@
                             x-transition:leave-end="opacity-0 scale-95"
                             class="absolute z-50 mt-2 w-72 max-w-[calc(100vw-2rem)] right-[-3rem] sm:right-0 rounded-md shadow-lg origin-top-right bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             style="display: none;"
-                            @click="open = false">
+                            @click.stop>
                         <div class="rounded-md ring-1 ring-black ring-opacity-5 content">
                              <div class="w-full">
                                 <div class="px-4 py-3 border-b border-gray-100 bg-gray-50">

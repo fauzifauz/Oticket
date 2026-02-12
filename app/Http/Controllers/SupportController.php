@@ -165,7 +165,50 @@ class SupportController extends Controller
 
         $statuses = \App\Models\TicketStatus::orderBy('order')->get();
         $slaRules = \App\Models\SlaRule::all();
-        return view('support.tickets.show', compact('ticket', 'statuses', 'slaRules'));
+        
+        $similarTickets = $this->getSimilarTickets($ticket);
+
+        return view('support.tickets.show', compact('ticket', 'statuses', 'slaRules', 'similarTickets'));
+    }
+
+    protected function getSimilarTickets($ticket)
+    {
+        try {
+            $scriptPath = base_path('app/AI/ticket_similarity.py');
+            // Escape arguments safely
+            $subject = escapeshellarg($ticket->subject);
+            $description = escapeshellarg($ticket->description);
+            $supportId = auth()->id();
+            
+            // Construct the command
+            // We use 2>&1 to capture stderr if needed, but json output is on stdout
+            // Use venv python if available, otherwise fallback to system python
+            $pythonPath = base_path('venv/bin/python');
+            if (!file_exists($pythonPath)) {
+                $pythonPath = 'python3';
+            }
+            
+            $command = "\"$pythonPath\" \"$scriptPath\" --subject=$subject --description=$description --support_id=$supportId";
+            
+            $output = shell_exec($command);
+            
+            $result = json_decode($output, true);
+            
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return [];
+            }
+            
+            // Check for error key
+             if (isset($result['error'])) {
+                \Illuminate\Support\Facades\Log::error("AI Script Error: " . $result['error']);
+                return [];
+            }
+
+            return $result ?? [];
+        } catch (\Exception $e) {
+            \Illuminate\Support\Facades\Log::error("AI Similarity Execution Failed: " . $e->getMessage());
+            return [];
+        }
     }
 
     public function update(Request $request, $id)
