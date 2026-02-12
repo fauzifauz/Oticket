@@ -25,7 +25,26 @@ Thumbs.db
 npm-debug.log
 yarn-error.log
 
+# Laravel Framework
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*.php
+/storage/logs/*.log
+
+# Project Specific Logs
+queue.log
+serve.log
+
+# ngrok
+ngrok
+ngrok.log
+ngrok-v3-stable-linux-amd64.tgz
+
 # Python / AI Model Environment
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
 /app/AI/venv/
 /app/AI/__pycache__/
 *.pyc
@@ -36,5 +55,4 @@ yarn-error.log
 *.sql
 
 # System Files
-.DS_Store
-Thumbs.db
+# (Handled above, but keeping sections for clarity if needed)
