@@ -183,7 +183,7 @@ class SupportController extends Controller
             // Construct the command
             // We use 2>&1 to capture stderr if needed, but json output is on stdout
             // Use venv python if available, otherwise fallback to system python
-            $pythonPath = base_path('venv/bin/python');
+            $pythonPath = base_path('app/AI/venv/bin/python');
             if (!file_exists($pythonPath)) {
                 $pythonPath = 'python3';
             }

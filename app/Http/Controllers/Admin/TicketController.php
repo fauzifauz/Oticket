@@ -212,7 +212,7 @@ class TicketController extends Controller
             // For Admin, we allow seeing global history for better oversight
             // Support will remain restricted to their own history via SupportController
             
-            $pythonPath = base_path('venv/bin/python');
+            $pythonPath = base_path('app/AI/venv/bin/python');
             if (!file_exists($pythonPath)) {
                 $pythonPath = 'python3';
             }
