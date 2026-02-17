@@ -114,7 +114,101 @@
                             </div>
                         </div>
 
-                        <!-- 3. System Broadcast -->
+                        <!-- 3. Services / Fitur Layanan Section -->
+                        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden relative">
+                             <div class="absolute top-0 left-0 w-1.5 h-full bg-indigo-600"></div>
+                            <div class="px-6 py-4 sm:px-8 sm:py-6 border-b border-gray-100 bg-white">
+                                <h3 class="text-[10px] sm:text-xs font-black text-gray-900 uppercase tracking-widest flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                    Services Section
+                                </h3>
+                                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-tighter mt-1">Managed service features and descriptions</p>
+                            </div>
+                            <div class="p-5 sm:p-8 space-y-6 sm:space-y-10">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+                                    @foreach(['services_title', 'services_subtitle'] as $key)
+                                        @php $content = $contents->where('key', $key)->first(); @endphp
+                                        @if($content)
+                                            <div class="space-y-3">
+                                                <label for="{{ $content->key }}" class="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest px-1">{{ strtoupper($content->label) }}</label>
+                                                <input type="text" id="{{ $content->key }}" name="{{ $content->key }}" value="{{ $content->value }}" class="w-full bg-gray-50 border-gray-100 rounded-2xl py-4 px-6 text-sm font-bold text-gray-700 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all uppercase tracking-tight">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                
+                                <div class="space-y-4 sm:space-y-6 pt-5 sm:pt-6 border-t border-gray-50">
+                                    @foreach([1, 2, 3, 4, 5, 6] as $step)
+                                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start">
+                                            <div class="md:col-span-2 space-y-2 sm:space-y-3">
+                                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest px-1">Icon {{ $step }}</label>
+                                                @php $content = $contents->where('key', "service_{$step}_icon")->first(); @endphp
+                                                <input type="text" name="{{ "service_{$step}_icon" }}" value="{{ $content?->value }}" class="w-full bg-gray-50 border-gray-100 rounded-xl py-2 px-4 text-center text-lg focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all sm:py-3 sm:text-xl">
+                                            </div>
+                                            <div class="md:col-span-4 space-y-2 sm:space-y-3">
+                                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest px-1">Title {{ $step }}</label>
+                                                @php $content = $contents->where('key', "service_{$step}_title")->first(); @endphp
+                                                <input type="text" name="{{ "service_{$step}_title" }}" value="{{ $content?->value }}" class="w-full bg-gray-50 border-gray-100 rounded-xl py-2 px-4 text-[10px] font-bold text-gray-700 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all uppercase sm:py-3 sm:text-xs">
+                                            </div>
+                                            <div class="md:col-span-6 space-y-2 sm:space-y-3">
+                                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest px-1">Description {{ $step }}</label>
+                                                @php $content = $contents->where('key', "service_{$step}_desc")->first(); @endphp
+                                                <textarea name="{{ "service_{$step}_desc" }}" rows="2" class="w-full bg-gray-50 border-gray-100 rounded-xl py-2 px-4 text-[10px] font-bold text-gray-700 focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 transition-all uppercase leading-relaxed sm:py-3 sm:text-[11px]">{{ $content?->value }}</textarea>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. Advantages / Keunggulan Section -->
+                        <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden relative">
+                             <div class="absolute top-0 left-0 w-1.5 h-full bg-violet-500"></div>
+                            <div class="px-6 py-4 sm:px-8 sm:py-6 border-b border-gray-100 bg-white">
+                                <h3 class="text-[10px] sm:text-xs font-black text-gray-900 uppercase tracking-widest flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    Advantages Section
+                                </h3>
+                                <p class="text-[9px] text-gray-400 font-bold uppercase tracking-tighter mt-1">Key selling points and benefits</p>
+                            </div>
+                            <div class="p-5 sm:p-8 space-y-6 sm:space-y-10">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-8">
+                                    @foreach(['advantages_title', 'advantages_subtitle'] as $key)
+                                        @php $content = $contents->where('key', $key)->first(); @endphp
+                                        @if($content)
+                                            <div class="space-y-3">
+                                                <label for="{{ $content->key }}" class="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest px-1">{{ strtoupper($content->label) }}</label>
+                                                <input type="text" id="{{ $content->key }}" name="{{ $content->key }}" value="{{ $content->value }}" class="w-full bg-gray-50 border-gray-100 rounded-2xl py-4 px-6 text-sm font-bold text-gray-700 focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 transition-all uppercase tracking-tight">
+                                            </div>
+                                        @endif
+                                    @endforeach
+                                </div>
+                                
+                                <div class="space-y-4 sm:space-y-6 pt-5 sm:pt-6 border-t border-gray-50">
+                                    @foreach([1, 2, 3, 4, 5, 6] as $step)
+                                        <div class="grid grid-cols-1 md:grid-cols-12 gap-4 sm:gap-6 items-start">
+                                            <div class="md:col-span-2 space-y-2 sm:space-y-3">
+                                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest px-1">Icon {{ $step }}</label>
+                                                @php $content = $contents->where('key', "advantage_{$step}_icon")->first(); @endphp
+                                                <input type="text" name="{{ "advantage_{$step}_icon" }}" value="{{ $content?->value }}" class="w-full bg-gray-50 border-gray-100 rounded-xl py-2 px-4 text-center text-lg focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 transition-all sm:py-3 sm:text-xl">
+                                            </div>
+                                            <div class="md:col-span-4 space-y-2 sm:space-y-3">
+                                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest px-1">Title {{ $step }}</label>
+                                                @php $content = $contents->where('key', "advantage_{$step}_title")->first(); @endphp
+                                                <input type="text" name="{{ "advantage_{$step}_title" }}" value="{{ $content?->value }}" class="w-full bg-gray-50 border-gray-100 rounded-xl py-2 px-4 text-[10px] font-bold text-gray-700 focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 transition-all uppercase sm:py-3 sm:text-xs">
+                                            </div>
+                                            <div class="md:col-span-6 space-y-2 sm:space-y-3">
+                                                <label class="text-[9px] font-black text-gray-400 uppercase tracking-widest px-1">Description {{ $step }}</label>
+                                                @php $content = $contents->where('key', "advantage_{$step}_desc")->first(); @endphp
+                                                <textarea name="{{ "advantage_{$step}_desc" }}" rows="2" class="w-full bg-gray-50 border-gray-100 rounded-xl py-2 px-4 text-[10px] font-bold text-gray-700 focus:ring-4 focus:ring-violet-500/10 focus:border-violet-500 transition-all uppercase leading-relaxed sm:py-3 sm:text-[11px]">{{ $content?->value }}</textarea>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4. System Broadcast -->
                         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden relative">
                             <div class="absolute top-0 left-0 w-1.5 h-full bg-amber-500"></div>
                             <div class="px-8 py-6 border-b border-gray-100 bg-amber-50/30">

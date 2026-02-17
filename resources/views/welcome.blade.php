@@ -194,6 +194,78 @@
         </div>
     </section>
 
+    <!-- Services Section -->
+    <section id="services" class="py-24 sm:py-32 bg-white relative overflow-hidden border-t border-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 sm:mb-24 fade-in-up">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                    {{ $cms['services_title'] ?? 'Fitur Layanan' }}
+                </h2>
+                <div class="w-20 h-1.5 bg-indigo-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+                    {{ $cms['services_subtitle'] ?? 'Solusi IT Terintegrasi untuk Kebutuhan Perusahaan Anda' }}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach(range(1, 6) as $i)
+                    @if(isset($cms["service_{$i}_title"]) && $cms["service_{$i}_title"])
+                        <!-- Service {{ $i }} -->
+                        <div class="group p-10 rounded-[2.5rem] bg-white border border-slate-200/60 shadow-lg shadow-slate-100/50 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-2 transition-all duration-500 fade-in-up delay-{{ $i * 100 }} relative overflow-hidden">
+                            <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-50/30 rounded-full blur-3xl group-hover:bg-indigo-100/40 transition-all duration-700"></div>
+                            <div class="relative">
+                                <div class="w-20 h-20 rounded-3xl bg-white border border-slate-100 flex items-center justify-center text-4xl mb-8 shadow-xl shadow-slate-100/50 group-hover:scale-110 group-hover:border-indigo-100 group-hover:bg-indigo-50 transition-all duration-500">
+                                    {{ $cms["service_{$i}_icon"] ?? '🛠️' }}
+                                </div>
+                                <h3 class="text-2xl font-bold text-slate-900 mb-4 tracking-tight group-hover:text-indigo-600 transition-colors">{{ $cms["service_{$i}_title"] }}</h3>
+                                <p class="text-slate-500 leading-relaxed text-base font-medium">
+                                    {{ $cms["service_{$i}_desc"] ?? '' }}
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- Advantages Section -->
+    <section class="py-24 sm:py-32 bg-white relative overflow-hidden border-t border-slate-50">
+
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 sm:mb-24 fade-in-up">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                    {{ $cms['advantages_title'] ?? 'Keunggulan Layanan Kami' }}
+                </h2>
+                <div class="w-20 h-1.5 bg-indigo-600 mx-auto rounded-full mb-6"></div>
+                <p class="text-base sm:text-lg text-slate-500 max-w-2xl mx-auto font-medium leading-relaxed">
+                    {{ $cms['advantages_subtitle'] ?? 'Mengapa ribuan perusahaan mempercayakan IT support mereka kepada kami.' }}
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach(range(1, 6) as $i)
+                    @if(isset($cms["advantage_{$i}_title"]) && $cms["advantage_{$i}_title"])
+                        <!-- Advantage {{ $i }} -->
+                        <div class="group p-8 rounded-[2rem] bg-white border border-slate-100 shadow-xl shadow-slate-200/50 hover:shadow-2xl hover:shadow-indigo-500/10 hover:-translate-y-1 transition-all duration-300 fade-in-up delay-{{ $i * 100 }} relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            <div class="relative">
+                                <div class="w-14 h-14 rounded-2xl bg-indigo-50 border border-indigo-100 flex items-center justify-center text-3xl mb-6 group-hover:scale-110 group-hover:bg-indigo-600 group-hover:text-white transition-all duration-300 shadow-sm">
+                                    {{ $cms["advantage_{$i}_icon"] ?? '⚡' }}
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 mb-3 tracking-tight">{{ $cms["advantage_{$i}_title"] }}</h3>
+                                <p class="text-slate-500 leading-relaxed text-sm font-medium">
+                                    {{ $cms["advantage_{$i}_desc"] ?? '' }}
+                                </p>
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer class="bg-slate-900 text-white py-16 sm:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
