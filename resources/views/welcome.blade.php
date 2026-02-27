@@ -270,7 +270,7 @@
     <footer class="bg-slate-900 text-white py-16 sm:py-24">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
-                <div class="lg:col-span-2">
+                <div class="lg:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
                     <div class="flex items-center gap-2 mb-6">
                         <span class="font-black text-2xl tracking-tighter text-white">OTICKET</span>
                     </div>
@@ -278,14 +278,14 @@
                         Sistem manajemen tiket IT terpadu untuk meningkatkan efisiensi dan transparansi operasional perusahaan.
                     </p>
                 </div>
-                <div>
+                <div class="text-center md:text-left">
                     <h4 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 font-bold">Menu</h4>
                     <ul class="space-y-4">
                         <li><a href="{{ route('login') }}" class="text-slate-400 hover:text-white transition-colors text-sm font-medium">Admin Login</a></li>
                         <li><a href="{{ route('employee.login') }}" class="text-slate-400 hover:text-white transition-colors text-sm font-medium">Portal Karyawan</a></li>
                     </ul>
                 </div>
-                <div>
+                <div class="text-center md:text-left">
                     <h4 class="text-xs font-black uppercase tracking-[0.2em] text-indigo-400 mb-6 font-bold">Legal</h4>
                     <ul class="space-y-4">
                         <li><a href="{{ $cms['footer_privacy_link'] ?? '#' }}" class="text-slate-400 hover:text-white transition-colors text-sm font-medium">Privacy Policy</a></li>

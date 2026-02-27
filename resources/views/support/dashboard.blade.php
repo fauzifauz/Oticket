@@ -137,99 +137,99 @@
             </div>
 
             <!-- Performance Metrics Row -->
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 lg:gap-6 mb-4 lg:mb-8 text-left">
+            <div class="grid grid-cols-3 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-2 lg:gap-6 mb-4 lg:mb-8 text-left">
                 <!-- MY Avg Response Time -->
-                <div class="bg-white p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                <div class="bg-white p-2 sm:p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
                     <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                        <div class="w-8 h-8 md:w-10 md:h-10 bg-blue-50 rounded-lg md:rounded-xl flex items-center justify-center text-blue-600">
-                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-blue-50 rounded-lg md:rounded-xl flex items-center justify-center text-blue-600">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[7px] md:text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">My Response</p>
-                            <p class="text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['myAvgResponseTime'] }}<span class="text-[10px] md:text-sm text-gray-400 ml-1">min</span></p>
+                            <p class="text-[7px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none">My Response</p>
+                            <p class="text-xs sm:text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['myAvgResponseTime'] }}<span class="text-[8px] sm:text-[10px] md:text-sm text-gray-400 ml-0.5">min</span></p>
                         </div>
                     </div>
-                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden hidden sm:block">
                         <div class="h-full bg-blue-500 rounded-full" style="width: {{ min(100, (10 - min(10, $performance['myAvgResponseTime'])) * 10) }}%"></div>
                     </div>
-                    <p class="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-1 md:mt-2">Personal avg</p>
+                    <p class="text-[6px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-tighter mt-1 md:mt-2">Personal avg</p>
                 </div>
 
                 <!-- TEAM Avg Response Time -->
-                <div class="bg-white p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                <div class="bg-white p-2 sm:p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
                     <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                        <div class="w-8 h-8 md:w-10 md:h-10 bg-cyan-50 rounded-lg md:rounded-xl flex items-center justify-center text-cyan-600">
-                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-cyan-50 rounded-lg md:rounded-xl flex items-center justify-center text-cyan-600">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[7px] md:text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">Team Response</p>
-                            <p class="text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['teamAvgResponseTime'] }}<span class="text-[10px] md:text-sm text-gray-400 ml-1">min</span></p>
+                            <p class="text-[7px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none">Team Response</p>
+                            <p class="text-xs sm:text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['teamAvgResponseTime'] }}<span class="text-[8px] sm:text-[10px] md:text-sm text-gray-400 ml-0.5">min</span></p>
                         </div>
                     </div>
-                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden hidden sm:block">
                         <div class="h-full bg-cyan-500 rounded-full" style="width: {{ min(100, (10 - min(10, $performance['teamAvgResponseTime'])) * 10) }}%"></div>
                     </div>
-                    <p class="text-[7px] md:text-[8px] text-gray-400 font-bold uppercase tracking-tighter mt-1 md:mt-2">Overall avg</p>
+                    <p class="text-[6px] sm:text-[9px] text-gray-400 font-bold uppercase tracking-tighter mt-1 md:mt-2">Overall avg</p>
                 </div>
 
                 <!-- Resolution Rate -->
-                <div class="bg-white p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                <div class="bg-white p-2 sm:p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
                     <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                        <div class="w-8 h-8 md:w-10 md:h-10 bg-emerald-50 rounded-lg md:rounded-xl flex items-center justify-center text-emerald-600">
-                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-emerald-50 rounded-lg md:rounded-xl flex items-center justify-center text-emerald-600">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[7px] md:text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">Resolution Rate</p>
-                            <p class="text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['resolutionRate'] }}<span class="text-[10px] md:text-sm text-gray-400 ml-1">%</span></p>
+                            <p class="text-[7px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none">Resolution Rate</p>
+                            <p class="text-xs sm:text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['resolutionRate'] }}<span class="text-[8px] sm:text-[10px] md:text-sm text-gray-400 ml-0.5">%</span></p>
                         </div>
                     </div>
-                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden hidden sm:block">
                         <div class="h-full bg-emerald-500 rounded-full" style="width: {{ $performance['resolutionRate'] }}%"></div>
                     </div>
                 </div>
 
                 <!-- Avg Resolution Time -->
-                <div class="bg-white p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
+                <div class="bg-white p-2 sm:p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition-all">
                     <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-2 md:mb-3">
-                        <div class="w-8 h-8 md:w-10 md:h-10 bg-purple-50 rounded-lg md:rounded-xl flex items-center justify-center text-purple-600">
-                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-purple-50 rounded-lg md:rounded-xl flex items-center justify-center text-purple-600">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[7px] md:text-[9px] font-bold text-gray-400 uppercase tracking-widest leading-none">Avg Resolution</p>
-                            <p class="text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['avgResolutionTime'] }}<span class="text-[10px] md:text-sm text-gray-400 ml-1">hrs</span></p>
+                            <p class="text-[7px] sm:text-[10px] font-bold text-gray-400 uppercase tracking-widest leading-none">Avg Resolution</p>
+                            <p class="text-xs sm:text-lg md:text-xl font-extrabold text-gray-900 leading-none mt-0.5 md:mt-0">{{ $performance['avgResolutionTime'] }}<span class="text-[8px] sm:text-[10px] md:text-sm text-gray-400 ml-0.5">hrs</span></p>
                         </div>
                     </div>
-                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden">
+                    <div class="h-1 bg-gray-100 rounded-full overflow-hidden hidden sm:block">
                         <div class="h-full bg-purple-500 rounded-full" style="width: {{ min(100, (24 - min(24, $performance['avgResolutionTime'])) * 4) }}%"></div>
                     </div>
                 </div>
 
                 <!-- Today's Resolved -->
-                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-lg shadow-indigo-100 text-white hover:shadow-xl transition-all">
-                    <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-2 md:mb-3 text-left">
-                        <div class="w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center">
-                            <svg class="w-4 h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                <div class="bg-gradient-to-br from-indigo-500 to-purple-600 p-2 sm:p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-lg shadow-indigo-100 text-white hover:shadow-xl transition-all">
+                    <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-3 mb-1 sm:mb-2 md:mb-3 text-left">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-5 md:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                         </div>
                         <div>
-                            <p class="text-[7px] md:text-[9px] font-bold text-indigo-100 uppercase tracking-widest leading-none">Today Resolved</p>
-                            <p class="text-xl md:text-2xl font-extrabold leading-none mt-0.5 md:mt-0">{{ $performance['todayResolved'] }}</p>
+                            <p class="text-[7px] sm:text-[10px] font-bold text-indigo-100 uppercase tracking-widest leading-none">Today Resolved</p>
+                            <p class="text-xs sm:text-xl md:text-2xl font-extrabold leading-none mt-0.5 md:mt-0">{{ $performance['todayResolved'] }}</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Rating Satisfaction Card (Moved here for mobile side-by-side) -->
-                <div class="bg-gradient-to-br from-amber-400 to-orange-500 p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-lg shadow-orange-100 text-white hover:shadow-xl transition-all">
-                    <div class="flex flex-col xl:flex-row xl:items-center gap-2 md:gap-4 mb-2 md:mb-4">
-                        <div class="w-8 h-8 md:w-10 md:h-10 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center">
-                            <svg class="w-4 h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                <div class="bg-gradient-to-br from-amber-400 to-orange-500 p-2 sm:p-3 lg:p-6 rounded-xl md:rounded-2xl shadow-lg shadow-orange-100 text-white hover:shadow-xl transition-all">
+                    <div class="flex flex-col xl:flex-row xl:items-center gap-1 sm:gap-2 md:gap-4 mb-1 sm:mb-2 md:mb-4">
+                        <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-10 md:h-10 bg-white/20 rounded-lg md:rounded-xl flex items-center justify-center">
+                            <svg class="w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
                         </div>
                         <div>
-                            <p class="text-[7px] md:text-[9px] font-black text-orange-50 uppercase tracking-wider md:tracking-normal lg:tracking-widest leading-none">Global Satisfaction</p>
-                            <p class="text-lg md:text-2xl font-black leading-none mt-0.5 md:mt-1">{{ number_format($performance['avgRating'], 1) }}<span class="text-[8px] md:text-sm opacity-80 ml-1">/ 5.0</span></p>
+                            <p class="text-[7px] sm:text-[10px] font-black text-orange-50 uppercase tracking-widest leading-none scale-x-90 sm:scale-x-100 origin-left">Global Satisfaction</p>
+                            <p class="text-xs sm:text-lg md:text-xl 2xl:text-2xl font-black leading-none mt-0.5 md:mt-1">{{ number_format($performance['avgRating'], 1) }}<span class="text-[6px] sm:text-[8px] md:text-sm opacity-80 ml-0.5">/ 5.0</span></p>
                         </div>
                     </div>
                     <div class="flex items-center justify-between mt-1 md:mt-0">
-                        <p class="text-[6px] md:text-[9px] text-orange-50 font-black uppercase tracking-widest">From {{ $performance['totalRatings'] }} Reviews</p>
+                        <p class="text-[5px] sm:text-[9px] text-orange-50 font-black uppercase tracking-tighter sm:tracking-widest">From {{ $performance['totalRatings'] }} Reviews</p>
                         <div class="flex gap-px">
                             @for($i = 1; $i <= 5; $i++)
                                 <svg class="w-2 h-2 md:w-3 md:h-3 {{ $i <= round($performance['avgRating']) ? 'text-white' : 'text-white/30' }}" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>

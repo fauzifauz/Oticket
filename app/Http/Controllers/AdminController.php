@@ -92,22 +92,26 @@ class AdminController extends Controller
             ->get()
             ->pluck('tickets_count', 'name');
         
-        // Ingress Trend
         $trendQuery = Ticket::query();
+        $trendType = 'weekly';
         if ($request->filled('year')) {
+            $trendType = 'monthly';
             $trendQuery->whereYear('created_at', $request->year)
                 ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') as date, count(*) as count")
                 ->groupBy('date')->orderBy('date');
         } elseif ($request->filled('month')) {
+            $trendType = 'daily';
             $trendQuery->whereRaw("DATE_FORMAT(created_at, '%Y-%m') = ?", [$request->month])
                 ->selectRaw("DATE(created_at) as date, count(*) as count")
                 ->groupBy('date')->orderBy('date');
         } elseif ($request->filled('week')) {
+            $trendType = 'daily';
             $date = \Carbon\Carbon::parse($request->week);
             $trendQuery->whereBetween('created_at', [$date->copy()->startOfWeek(), $date->copy()->endOfWeek()])
                 ->selectRaw("DATE(created_at) as date, count(*) as count")
                 ->groupBy('date')->orderBy('date');
         } else {
+            $trendType = 'weekly';
             $trendQuery->where('created_at', '>=', now()->subWeeks(12))
                 ->selectRaw('MIN(DATE(created_at)) as date, count(*) as count')
                 ->groupByRaw('YEARWEEK(created_at, 1)')->orderByRaw('MIN(created_at)');
@@ -164,7 +168,7 @@ class AdminController extends Controller
             'assignedTickets', 'overdueTickets', 'deletedTickets',
             'avgServiceTime', 'avgResponseTime', 'avgRating',
             'ticketsByStatus', 'ticketsByPriority', 'ticketsByCategory', 'ticketsPerDay',
-            'statusColors', 'priorityColors', 'miningData'
+            'statusColors', 'priorityColors', 'miningData', 'trendType'
         ));
     }
 

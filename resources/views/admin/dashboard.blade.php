@@ -121,20 +121,20 @@
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
                         <!-- Cluster Summary -->
-                        <div class="lg:col-span-4 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-1 gap-3">
+                        <div class="lg:col-span-4 grid grid-cols-3 lg:grid-cols-1 gap-2 lg:gap-3">
                             @foreach($miningData['clusters'] as $cluster)
                             <a href="{{ route('admin.tickets.index', array_merge(['departments' => $cluster['departments']], request()->only(['year', 'month', 'week']))) }}" 
-                               class="group flex items-center justify-between p-3 rounded-xl bg-gray-50 hover:bg-white hover:shadow-md hover:ring-1 hover:ring-blue-100 transition-all duration-300">
-                                <div class="flex items-center gap-3">
-                                    <div class="w-8 h-8 rounded-lg flex items-center justify-center {{ $cluster['intensity'] == 'High' ? 'bg-rose-50 text-rose-600' : ($cluster['intensity'] == 'Medium' ? 'bg-amber-50 text-amber-600' : 'bg-emerald-50 text-emerald-600') }}">
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
+                               class="group flex items-center justify-between p-2 lg:p-3 rounded-xl bg-gray-50 hover:bg-white hover:shadow-md hover:ring-1 hover:ring-blue-100 transition-all duration-300">
+                                <div class="flex items-center gap-2 lg:gap-3">
+                                    <div class="w-7 h-7 lg:w-8 lg:h-8 rounded-lg flex items-center justify-center {{ $cluster['intensity'] == 'High' ? 'bg-rose-50 text-rose-600' : ($cluster['intensity'] == 'Medium' ? 'bg-amber-50 text-amber-600' : 'bg-emerald-50 text-emerald-600') }}">
+                                        <svg class="w-3.5 h-3.5 lg:w-4 lg:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                                     </div>
                                     <div>
-                                        <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none">{{ $cluster['intensity'] }} Activity</p>
-                                        <p class="text-xs font-black text-gray-900 mt-1">{{ $cluster['count'] }} Sectors</p>
+                                        <p class="text-[7px] lg:text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none">{{ $cluster['intensity'] }} Activity</p>
+                                        <p class="text-[10px] lg:text-xs font-black text-gray-900 mt-1">{{ $cluster['count'] }} Sectors</p>
                                     </div>
                                 </div>
-                                <svg class="w-3 h-3 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                                <svg class="hidden md:block w-3 h-3 text-gray-300 group-hover:text-blue-500 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
                             </a>
                             @endforeach
                         </div>
@@ -537,9 +537,17 @@
                             if (activeEls.length > 0) {
                                 const index = activeEls[0].index;
                                 const label = Object.keys(trendData)[index];
-                                // Trend logic: if YYYY-MM-DD, it's specific. If YYYY-MM, it's monthly ingress.
-                                const paramKey = label.length === 7 ? 'month' : 'date';
-                                window.location.href = getFilteredUrl(`{{ route('admin.tickets.index') }}`, { [paramKey]: label });
+                                
+                                let params = {};
+                                @if($trendType === 'monthly')
+                                    params.month = label;
+                                @elseif($trendType === 'weekly')
+                                    params.week_start = label;
+                                @else
+                                    params.date = label;
+                                @endif
+                                
+                                window.location.href = getFilteredUrl(`{{ route('admin.tickets.index') }}`, params);
                             }
                         }
                     }

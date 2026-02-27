@@ -26,6 +26,7 @@
                 <div class="p-5 sm:p-10 text-left" x-data="{ 
                     selectedCategory: '{{ old('category_id', '') }}',
                     subject: '{{ old('subject', '') }}',
+                    fileError: '',
                     setQuickIssue(sub, cat) {
                         this.subject = sub;
                         this.selectedCategory = cat;
@@ -34,6 +35,18 @@
                         const el = document.getElementById('subject');
                         el.classList.add('ring-4', 'ring-indigo-500/20');
                         setTimeout(() => el.classList.remove('ring-4', 'ring-indigo-500/20'), 500);
+                    },
+                    validateFile(event) {
+                        const file = event.target.files[0];
+                        if (file && file.size > 5242880) {
+                            this.fileError = 'File must be uploaded within the allowed size limit (Max: 5MB for images/documents).';
+                            event.target.value = '';
+                            document.getElementById('upload-placeholder').classList.remove('opacity-0');
+                            document.getElementById('file-preview').classList.add('hidden');
+                        } else {
+                            this.fileError = '';
+                            previewFile(event.target);
+                        }
                     }
                 }">
                     @if ($errors->any())
@@ -155,7 +168,7 @@
                         <div class="space-y-4">
                             <label class="text-[10px] font-extrabold text-gray-400 uppercase tracking-widest px-1">Visual Evidence (Optional)</label>
                             <div class="relative group">
-                                <input type="file" name="attachment" id="attachment" onchange="previewFile(this)"
+                                <input type="file" name="attachment" id="attachment" @change="validateFile($event)"
                                     class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-30">
                                 
                                 <div class="w-full bg-gray-50 border-2 border-dashed border-gray-200 rounded-2xl p-8 flex flex-col items-center justify-center transition-all group-hover:border-indigo-300 group-hover:bg-indigo-50/10 relative overflow-hidden h-48">
@@ -186,6 +199,16 @@
 
                                 </div>
                             </div>
+
+                            <template x-if="fileError">
+                                <div class="mt-4 p-4 bg-rose-50 border border-rose-100 rounded-2xl flex items-center justify-center gap-3 animate-fade-in-down text-center">
+                                    <div class="w-8 h-8 bg-rose-500 rounded-lg flex items-center justify-center text-white shrink-0">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                    </div>
+                                    <p class="text-[10px] font-black text-rose-700 uppercase tracking-widest" x-text="fileError"></p>
+                                </div>
+                            </template>
+
                             <script>
                                 function previewFile(input) {
                                     const placeholder = document.getElementById('upload-placeholder');
@@ -224,7 +247,8 @@
                         </div>
 
                         <div class="pt-6 border-t border-gray-50">
-                            <button type="submit" class="w-full py-5 bg-indigo-600 text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-indigo-700 shadow-2xl shadow-indigo-100 transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1 active:translate-y-0">
+                            <button type="submit" 
+                                class="w-full py-5 bg-indigo-600 text-white rounded-2xl text-[11px] font-black uppercase tracking-[0.2em] hover:bg-indigo-700 shadow-2xl shadow-indigo-100 transition-all duration-300 flex items-center justify-center gap-3 transform hover:-translate-y-1 active:translate-y-0 disabled:transform-none">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
                                 Deploy Support Request
                             </button>

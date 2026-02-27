@@ -1,23 +1,23 @@
 <x-app-layout>
     <x-slot name="header">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center text-left gap-4">
-            <div>
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center text-left gap-4 md:gap-8">
+            <div class="flex-1 min-w-0">
                 <h2 class="font-extrabold text-xl sm:text-2xl text-gray-900 tracking-tight">
                     {{ __('User Management') }}
                 </h2>
                 <p class="text-[10px] sm:text-xs font-medium text-gray-500 mt-1 uppercase tracking-widest">Manage your organization members</p>
             </div>
-            <div class="flex flex-wrap items-center gap-2 sm:gap-3">
-                <a href="{{ route('admin.users.export-pdf') }}" class="inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-xl font-bold text-[10px] sm:text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition duration-150">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <div class="flex items-center justify-start md:justify-end gap-2 sm:gap-3 w-full md:w-auto overflow-x-auto md:overflow-x-visible scrollbar-hide px-0.5">
+                <a href="{{ route('admin.users.export-pdf') }}" class="inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-xl font-bold text-[10px] sm:text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition duration-150 shrink-0 whitespace-nowrap">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-red-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Export PDF
                 </a>
-                <a href="{{ route('admin.users.export') }}" class="inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-xl font-bold text-[10px] sm:text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition duration-150">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <a href="{{ route('admin.users.export') }}" class="inline-flex items-center px-3 sm:px-4 py-2 bg-white border border-gray-300 rounded-xl font-bold text-[10px] sm:text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 transition duration-150 shrink-0">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                     Export CSV
                 </a>
-                <a href="{{ route('admin.users.create') }}" class="inline-flex items-center px-3 sm:px-4 py-2 bg-indigo-600 border border-transparent rounded-xl font-bold text-[10px] sm:text-xs text-white uppercase tracking-widest hover:bg-indigo-700 shadow-md shadow-indigo-200 transition duration-150">
-                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
+                <a href="{{ route('admin.users.create') }}" class="inline-flex items-center px-3 sm:px-4 py-2 bg-indigo-600 border border-transparent rounded-xl font-bold text-[10px] sm:text-xs text-white uppercase tracking-widest hover:bg-indigo-700 shadow-md shadow-indigo-200 transition duration-150 shrink-0">
+                    <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1.5 sm:mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                     Add User
                 </a>
             </div>

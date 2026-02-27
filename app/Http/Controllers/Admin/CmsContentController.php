@@ -16,6 +16,16 @@ class CmsContentController extends Controller
 
     public function update(Request $request)
     {
+        $imageKeys = CmsContent::where('type', 'image')->pluck('key')->toArray();
+        $validationRules = [];
+        foreach ($imageKeys as $key) {
+            $validationRules[$key] = 'nullable|image|max:5120';
+        }
+
+        $request->validate($validationRules, [
+            '*.max' => 'File must be uploaded within the allowed size limit (Max: 5MB for images/documents).',
+        ]);
+
         $data = $request->except('_token', '_method');
 
         foreach ($data as $key => $value) {

@@ -61,6 +61,9 @@ class TicketController extends Controller
             'category_id' => 'required|exists:ticket_categories,id',
             'subject' => 'required|string|max:255',
             'description' => 'required|string',
+            'attachment' => 'nullable|file|max:5120',
+        ], [
+            'attachment.max' => 'File must be uploaded within the allowed size limit (Max: 5MB for images/documents).',
         ]);
 
         $category = TicketCategory::findOrFail($validated['category_id']);

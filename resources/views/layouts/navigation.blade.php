@@ -57,12 +57,12 @@
                             x-transition:leave="transition ease-in duration-75"
                             x-transition:leave-start="opacity-100 scale-100"
                             x-transition:leave-end="opacity-0 scale-95"
-                            class="absolute z-50 mt-2 w-72 max-w-[calc(100vw-2rem)] right-[-3rem] sm:right-0 rounded-md shadow-lg origin-top-right bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                            class="absolute z-50 mt-2 w-64 sm:w-72 max-w-[calc(100vw-2rem)] right-[-3rem] sm:right-0 rounded-md shadow-lg origin-top-right bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                             style="display: none;"
                             @click.stop>
                         <div class="rounded-md ring-1 ring-black ring-opacity-5 content">
                              <div class="w-full">
-                                <div class="px-4 py-3 border-b border-gray-100 bg-gray-50">
+                                <div class="px-3 py-2 sm:px-4 sm:py-3 border-b border-gray-100 bg-gray-50">
                                     <div class="flex justify-between items-center">
                                         <p class="text-[10px] font-black text-gray-900 uppercase tracking-widest">Notifications</p>
                                         <span class="text-[9px] font-bold text-gray-400 uppercase" x-text="count + ' recent'"></span>
@@ -71,22 +71,22 @@
                                     <!-- Role Specific Stats -->
                                     <div class="mt-2 grid grid-cols-2 gap-2">
                                         <template x-if="stats.total !== undefined">
-                                            <div class="bg-indigo-50 px-2 py-1 rounded-md">
+                                            <a href="{{ route('admin.tickets.index') }}" class="bg-indigo-50 px-2 py-1 rounded-md hover:bg-indigo-100 transition-colors block">
                                                 <p class="text-[9px] font-bold text-indigo-600 uppercase">Total Tickets</p>
                                                 <p class="text-sm font-black text-indigo-900" x-text="stats.total"></p>
-                                            </div>
+                                            </a>
                                         </template>
                                         <template x-if="stats.unassigned !== undefined">
-                                            <div class="bg-rose-50 px-2 py-1 rounded-md">
-                                                <p class="text-[9px] font-bold text-rose-600 uppercase">Unassigned</p>
+                                            <a href="{{ route('admin.tickets.index', ['assigned' => 0]) }}" class="bg-rose-50 px-2 py-1 rounded-md hover:bg-rose-100 transition-colors block border border-rose-100">
+                                                <p class="text-[9px] font-bold text-rose-600 uppercase transition-all group-hover:tracking-wider">Unassigned</p>
                                                 <p class="text-sm font-black text-rose-900" x-text="stats.unassigned"></p>
-                                            </div>
+                                            </a>
                                         </template>
                                         <template x-if="stats.pending_users > 0">
-                                            <div class="bg-amber-50 px-2 py-1 rounded-md">
+                                            <a href="{{ route('admin.users.index', ['status' => 0]) }}" class="bg-amber-50 px-2 py-1 rounded-md hover:bg-amber-100 transition-colors block">
                                                 <p class="text-[9px] font-bold text-amber-600 uppercase">Pending Users</p>
                                                 <p class="text-sm font-black text-amber-900" x-text="stats.pending_users"></p>
-                                            </div>
+                                            </a>
                                         </template>
                                         <template x-if="stats.handling !== undefined">
                                             <div class="bg-amber-50 px-2 py-1 rounded-md col-span-2">
@@ -97,10 +97,10 @@
                                     </div>
                                 </div>
                                 
-                                <div class="max-h-64 overflow-y-auto">
+                                <div class="max-h-52 sm:max-h-64 overflow-y-auto">
                                     <template x-for="notification in notifications" :key="notification.id">
                                         <div class="relative group border-b border-gray-50 last:border-0 hover:bg-gray-50 transition-colors block">
-                                            <a :href="notification.route" class="block px-4 py-3">
+                                            <a :href="notification.route" class="block px-3 py-2 sm:px-4 sm:py-3">
                                                 <div class="flex items-start gap-3">
                                                     <div :class="'w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 bg-' + (notification.color || 'gray') + '-50 text-' + (notification.color || 'gray') + '-600'">
                                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -137,7 +137,7 @@
                                 </div>
 
                                 <!-- Dropdown Footer / History Link -->
-                                <div class="px-4 py-2 border-t border-gray-100 bg-gray-50 text-center">
+                                <div class="px-3 py-1.5 sm:px-4 sm:py-2 border-t border-gray-100 bg-gray-50 text-center">
                                     @if(Auth::user()->role === 'admin')
                                         <a href="{{ route('admin.tickets.index') }}" class="text-[10px] font-bold text-gray-500 hover:text-indigo-600 uppercase tracking-widest transition-colors">View Ticket History</a>
                                     @elseif(Auth::user()->role === 'support')

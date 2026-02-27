@@ -59,7 +59,22 @@
         </div>
     </x-slot>
 
-    <div class="py-12 bg-gray-50/50">
+    <div class="py-12 bg-gray-50/50" x-data="{ 
+        openPreview(url, fileName) {
+            this.previewUrl = url;
+            this.previewName = fileName;
+            const extension = fileName.split('.').pop().toLowerCase();
+            if (['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp'].includes(extension)) {
+                this.previewType = 'image';
+            } else if (extension === 'pdf') {
+                this.previewType = 'pdf';
+            } else {
+                window.open(url, '_blank');
+                return;
+            }
+            this.showPreview = true;
+        }
+    }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             @if(session('success'))
@@ -98,12 +113,19 @@
                             @if($ticket->attachments->count() > 0)
                             <div class="mt-6 lg:mt-8 pt-6 lg:pt-8 border-t border-gray-50 flex flex-wrap gap-3 lg:gap-4 text-left">
                                 @foreach($ticket->attachments as $attachment)
-                                    <a href="{{ Storage::url($attachment->file_path) }}" target="_blank" class="flex items-center gap-2 lg:gap-3 p-3 lg:p-4 bg-gray-50 rounded-xl lg:rounded-2xl border border-gray-100 hover:border-indigo-200 hover:bg-white transition-all group">
+                                    @php
+                                        $extension = pathinfo($attachment->file_name, PATHINFO_EXTENSION);
+                                        $isImage = in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif', 'svg', 'webp']);
+                                        $label = $isImage ? 'View Image' : (strtolower($extension) === 'pdf' ? 'View Document' : 'Attachment');
+                                    @endphp
+                                    <a href="{{ Storage::url($attachment->file_path) }}" 
+                                       @click.prevent="openPreview('{{ Storage::url($attachment->file_path) }}', '{{ $attachment->file_name }}')"
+                                       class="flex items-center gap-2 lg:gap-3 p-3 lg:p-4 bg-gray-50 rounded-xl lg:rounded-2xl border border-gray-100 hover:border-indigo-200 hover:bg-white transition-all group cursor-zoom-in">
                                         <div class="w-8 h-8 lg:w-10 lg:h-10 bg-white rounded-lg lg:rounded-xl shadow-sm flex items-center justify-center text-gray-400 group-hover:text-indigo-500 transition-colors">
                                             <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                                         </div>
                                         <div>
-                                            <p class="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-widest group-hover:text-indigo-400">Attached Asset</p>
+                                            <p class="text-[8px] lg:text-[9px] font-black text-gray-400 uppercase tracking-widest group-hover:text-indigo-400">{{ $label }}</p>
                                             <p class="text-[9px] lg:text-[10px] font-black text-gray-900 uppercase tracking-tight">{{ Str::limit($attachment->file_name, 20) }}</p>
                                         </div>
                                     </a>
@@ -365,6 +387,38 @@
                         <p class="text-[9px] lg:text-[10px] font-bold text-white leading-relaxed uppercase tracking-tight text-left">
                             PINS IT Services guarantees data integrity and professional operational response for every submitted protocol within our global ecosystem.
                         </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Attachment Preview Modal -->
+    <div x-show="showPreview" class="fixed inset-0 z-[100] overflow-y-auto" x-cloak>
+        <div x-show="showPreview" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="fixed inset-0 bg-gray-900/90 backdrop-blur-sm transition-opacity" @click="showPreview = false"></div>
+        <div class="flex min-h-full items-center justify-center p-4">
+            <div x-show="showPreview" x-transition:enter="ease-out duration-300" x-transition:enter-start="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" x-transition:enter-end="opacity-100 translate-y-0 sm:scale-100" x-transition:leave="ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0 sm:scale-100" x-transition:leave-end="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95" class="relative w-full max-w-[95vw] bg-white rounded-3xl shadow-2xl overflow-hidden" @click.away="showPreview = false">
+                <button @click="showPreview = false" class="absolute top-4 right-4 z-10 p-2 bg-gray-100 hover:bg-gray-200 text-gray-500 rounded-full transition-all">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+                <div class="p-2 sm:p-4 h-[90vh] flex flex-col">
+                    <template x-if="previewType === 'image'">
+                        <div class="flex-1 flex items-center justify-center overflow-auto">
+                            <img :src="previewUrl" class="w-full h-full object-contain rounded-xl shadow-lg border border-gray-100">
+                        </div>
+                    </template>
+                    <template x-if="previewType === 'pdf'">
+                        <div class="flex-1 flex flex-col h-full">
+                            <iframe :src="previewUrl" class="flex-1 w-full rounded-xl border border-gray-100" frameborder="0"></iframe>
+                        </div>
+                    </template>
+
+                    <div class="mt-4 flex justify-between items-center px-2">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest truncate max-w-[60%]" x-text="previewName"></p>
+                        <a :href="previewUrl" :download="previewName" target="_blank" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100">
+                            <svg class="w-3.5 h-3.5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a2 2 0 002 2h12a2 2 0 002-2v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            Open / Download
+                        </a>
                     </div>
                 </div>
             </div>
